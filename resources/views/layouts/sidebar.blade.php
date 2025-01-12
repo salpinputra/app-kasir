@@ -6,6 +6,12 @@
     <div class="sidebar">
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-weidget="treeview" roel="menu" data-accordion="false">
+                
+                <x-nav-item title="Home" icon="fas fa-home" :routes="['home']"/>
+
+                @can('admin')
+                <x-nav-item title="User" icon="fas fa-user-tie" :routes="['user.index', 'user.create', 'user.edit']"/>
+                @endcan
             </ul>
         </nav>
     </div>

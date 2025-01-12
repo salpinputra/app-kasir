@@ -1,6 +1,6 @@
-@ektends('layouts.main', ['title' => 'User'])
+@extends('layouts.main', ['title' => 'User'])
 @section('title-content')
-    <i class="fas fa-user-tier mr-2"></i> User
+    <i class="fas fa-user-tie mr-2"></i> User
 @endsection
 
 @section('content')
@@ -16,7 +16,7 @@
     </x-alert>
 @endif
 
-@if (session('update') == 'success')
+@if (session('destroy') == 'success')
     <x-alert type="success">
         <strong>Berhasil dihapus!</strong> User Berahasil Dihapus.
     </x-alert>
@@ -31,7 +31,7 @@
             <div class="input-group">
                 <input type="text" name="search" value="<?= request()->search ?>" class="form-comtrol" placeholder="Nama, username">
                 <div class="input-group-append">
-                    <button class="btn btn-primary">
+                    <button type="submit" class="btn btn-primary">
                         <i class="fas fa-search"></i>
                     </button>
                 </div>
@@ -51,18 +51,18 @@
             <tbody>
                 @foreach ($users as $key => $user)
                 <tr>
-                    <td>{{$users-> fristItem() + $key }}</td>
+                    <td>{{$users->firstItem() + $key }}</td>
                     <td>{{$user->nama}}</td>
                     <td>{{$user->username}}</td>
                     <td class="text-right">
                         <a href="{{route('user.edit', [
-                            'user' => $userid,
+                            'user' => $user->id,
                             ]) }}" 
                             class="btn btn-xs text-success p-0 mr-1">
                             <i class="fas fa-edit"></i>
                         </a>
 
-                        <button type="button" data-toggle="modal" data-targer="#modalDelete"
+                        <button type="button" data-toggle="modal" data-target="#modalDelete"
                             data-url="{{ route('user.destroy', [
                                 'user' => $user->id,
                             ]) }}" 
@@ -76,7 +76,7 @@
         </table>
     </div>
     <div class="card-footer">
-        {{ $user->links('vendor.pagination,bootstrap-4')}}
+        {{ $users->links('vendor.pagination.bootstrap-4')}}
     </div>
 </div>
 @endsection

@@ -1,4 +1,4 @@
-<div class="modal-fade" id="modalDelete" tabindex="-1">
+<div class="modal fade" id="modalDelete" tabindex="-1">
     <div class="modal-dialog nodal-sm">
         <div class="modal-content">
             <div class="modal-header">
@@ -21,14 +21,14 @@
         </div>
     </div>
 </div>
-@push('script')
+@push('scripts')
     <script>
         $(function(){
             $('#modalDelete').on('show.bs.modal', function(event){
                 var url = $(event.relatedTarget).data('url');
                 $(this).find('#formDelete').attr('action', url);
             });
-            $('yesDelete').click(function(){
+            $('#yesDelete').click(function(){
                 $('#formDelete').submit();
             });
         })
