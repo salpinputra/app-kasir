@@ -10,9 +10,17 @@ class PelangganController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $search=$request->search;
+        $pelanggans = Pelanggan::orderBy('id')
+            ->when($search, function ($q, $search){
+                return $q->where('nama','like',"%{$search}%");
+            })
+            ->paginate();
+
+            if($search)$pelanggans->appends(['search'=>$search]);
+                return view('pelanggan.index', ['pelanggans'=>$pelanggans]);
     }
 
     /**
@@ -20,7 +28,7 @@ class PelangganController extends Controller
      */
     public function create()
     {
-        //
+        return view('pelanggan.create');
     }
 
     /**
@@ -28,7 +36,13 @@ class PelangganController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nama' => ['required', 'max:100'],
+            'alamat' => ['nullable', 'max:500'],
+            'nomor_tlp' => ['nullable', 'max:14']
+        ]);
+        Pelanggan::create($request->all());
+        return redirect()->route('pelanggan.index')->with('store','success');
     }
 
     /**
@@ -36,7 +50,7 @@ class PelangganController extends Controller
      */
     public function show(Pelanggan $pelanggan)
     {
-        //
+        abort(404);
     }
 
     /**
@@ -44,7 +58,9 @@ class PelangganController extends Controller
      */
     public function edit(Pelanggan $pelanggan)
     {
-        //
+        return view('pelanggan.edit',[
+            'pelanggan'=>$pelanggan
+        ]);
     }
 
     /**
@@ -52,7 +68,13 @@ class PelangganController extends Controller
      */
     public function update(Request $request, Pelanggan $pelanggan)
     {
-        //
+        $request->validate([
+            'nama' => ['required', 'max:100'],
+            'alamat' => ['nullable', 'max:500'],
+            'nomor_tlp' => ['nullable', 'max:14']
+        ]);
+        $pelanggan->update($request->all());
+        return redirect()->route('pelanggan.index')->with('update','success');
     }
 
     /**
@@ -60,6 +82,7 @@ class PelangganController extends Controller
      */
     public function destroy(Pelanggan $pelanggan)
     {
-        //
+        $pelanggan->delete();
+        return back()->with('destroy','success');
     }
 }

@@ -24,7 +24,7 @@
 
 <div class="card card-orange card-outline">
     <div class="card-header form-inline">
-        <a href="{{route('user.create')}}" class="btm btn-primary">
+        <a href="{{route('user.create')}}" class="btn btn-primary">
             <i class="fas fa-plus mr-2"></i> Tambah
         </a>
         <form action="?" method="get" class="ml-auto">

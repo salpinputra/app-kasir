@@ -1,4 +1,4 @@
-@extedns('layouts.main', ['title'=> 'Pelanggan'])
+@extends('layouts.main', ['title'=> 'Pelanggan'])
 @section('title-content')
     <i class="fas fa-user mr-2"></i> Pelanggan
 @endsection
@@ -48,7 +48,7 @@
             <tbody>
                 @foreach ($pelanggans as $key => $pelanggan)
                 <tr>
-                    <td>{{$pelanggan->firstItem() + $key}}</td>
+                    <td>{{$pelanggans->firstItem() + $key}}</td>
                     <td>{{$pelanggan->nama}}</td>
                     <td>{{$pelanggan->nomor_tlp}}</td>
                     <td>{{$pelanggan->alamat}}</td>
@@ -67,7 +67,7 @@
         </table>
     </div>
     <div class="card-footer">
-        {{pelanggans->links('vendor.pagination.bootstrap-4')}}
+        {{$pelanggans->links('vendor.pagination.bootstrap-4')}}
     </div>
 </div>
 @endsection
