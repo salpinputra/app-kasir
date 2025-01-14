@@ -34,5 +34,12 @@ class DatabaseSeeder extends Seeder
             'alamat' => 'Cikarang',
             'nomor_tlp' => '083346444798'
         ]);
+        \App\Models\Kategori::create([
+            'nama_kategori' =>'Makanan',
+        ]);
+        \App\Models\Kategori::create([
+            'nama_kategori' =>'Minuman',
+        ]);
+
     }
 }
